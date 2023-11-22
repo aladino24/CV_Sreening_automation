@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CV Matching</title>
+</head>
+<body>
+    <h1>CV Matching</h1>
+    <form method="POST" action="/process" enctype="multipart/form-data">
+        <label for="language_selection">Language Selection:</label>
+        <select name="language_selection" id="language_selection">
+            <option value="Indonesia">Indonesia</option>
+            <option value="English">English</option>
+        </select>
+        <br>    
+        <label for="job_description_file">Job Description (PDF):</label>
+        <input type="file" name="job_description_file" id="job_description_file" accept=".pdf" required>
+        <br>
+        <label for="num_candidates_to_select">Berapa banyak kandidat yang akan diinput:</label>
+        <input type="number" name="num_candidates_to_select" id="num_candidates_to_select" required>
+        <br>
+        <div id="candidates">
+            <!-- Dynamic input fields for candidate information -->
+        </div>
+        <input type="submit" value="Process">
+    </form>
+    <script>
+        document.getElementById('num_candidates_to_select').addEventListener('input', function() {
+            var numCandidates = parseInt(this.value);
+            var candidatesDiv = document.getElementById('candidates');
+            candidatesDiv.innerHTML = '';
+            for (var i = 1; i <= numCandidates; i++) {
+                candidatesDiv.innerHTML += '<label for="candidate_name_' + i + '">Enter the name of candidate ' + i + ':</label>';
+                candidatesDiv.innerHTML += '<input type="text" name="candidate_name_' + i + '" required>';
+                candidatesDiv.innerHTML += '<label for="cv_file_' + i + '">Upload CV for candidate ' + i + ' (PDF):</label>';
+                candidatesDiv.innerHTML += '<input type="file" name="cv_file_' + i + '" accept=".pdf" required>';
+                candidatesDiv.innerHTML += '<br>';
+            }
+        });
+    </script>
+</body>
+</html>
